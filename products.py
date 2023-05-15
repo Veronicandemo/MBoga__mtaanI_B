@@ -1,14 +1,15 @@
-class Products:
+class Products:                  #define the class product
 
-    def __init__(self, name, description, price, quantity, image):
+    def __init__(self, name, description, price, quantity, image):   #initialize attributes
         self.product_name = name
         self.product_description = description
         self.product_price = price
         self.product_quantity = quantity
         self.product_image = image
     
+    
     def add_product(self):
-        product_dict = {
+        product_dict = {            #structure to enable us to access specific attributes and their values
             "name": self.product_name,
             "description": self.product_description,
             "price": self.product_price,
@@ -18,67 +19,60 @@ class Products:
         
         return product_dict
 
-# create an empty list to store the products
-products_list = []
+products_list = []       #empty list to store all the products that are added
 
-num_products = int(input("How many products do you want to add? "))
 
-for i in range(num_products):
-    name = input(f"Enter the name of product {i+1}: ")
-    description = input(f"Enter the description of product {i+1}: ")
-    price = float(input(f"Enter the price of product {i+1}: "))
-    quantity = int(input(f"Enter the quantity of product {i+1}: "))
-    image_url = input(f"Enter the URL of product {i+1} image: ")
+added_products = int(input("How many products do you want to add? "))     #prompt to ask user how many products are to be added
+
+
+for i in range(added_products):          #iterating over the number of products to be added
+    name = input(f"Enter product name {i+1}: ")
+    description = input(f"Enter product description {i+1}: ")
+    price = float(input(f"Enter product price {i+1}: "))
+    quantity = int(input(f"Enter product quantity{i+1}: "))
+    image_link = input(f"Enter img link {i+1}: ")
     
-    product = Products(name, description, price, quantity, image_url)
-    products_list.append(product)
+    product = Products(name, description, price, quantity, image_link)     #object instantiton
+    products_list.append(product)                #adding new products to product list
     
-    product_dict = product.add_product()
+    product_dict = product.add_product()         
     print(product_dict)
     
-print("All Products:")
-for i, product in enumerate(products_list):
-    print(f"Product {i+1} Details:")
-    print(f"Name: {product.product_name}")
-    print(f"Description: {product.product_description}")
-    print(f"Price: {product.product_price}")
-    print(f"Quantity: {product.product_quantity}")
-    print(f"Image URL: {product.product_image}")
-    print()
 
+def edit_products(products_list):          #method to edit details of already existing rpoductd
 
-def edit_products(products_list):
     edit_product = input("Which product do you want to edit?:")
 
-    for product in products_list:
-        if product.product_name == edit_product:
-            new_name = input("Enter the new name: ")
-            new_description = input("Enter the new description: ")
-            new_price = float(input("Enter the new price: "))
-            new_quantity = int(input("Enter the new quantity: "))
-            new_image_url = input("Enter the new image URL: ")
+    for product in products_list:              #iteration through the list of products
+        if product.product_name == edit_product:     #checking if the input product matches with any product in the productlist
+            new_name = input("Enter new name: ")
+            new_description = input("Enter new description: ")
+            new_price = float(input("Enter new price: "))
+            new_quantity = int(input("Enter new quantity: "))
+            new_image_link = input("Enter the new img link: ")
             
+            #modifying attributes to new entered values for edited product
             product.product_name = new_name
             product.product_description = new_description
             product.product_price = new_price
             product.product_quantity = new_quantity
-            product.product_image = new_image_url
+            product.product_image = new_image_link
             
             print("Product edited successfully.")
-            return
 
-    print("Product not found.")
+        else:
+            print("Product not found.")
 
 
 edit_products(products_list)
 
-def delete_product(products_list):
-    delete_product = input("Which product do you want to delete? ")
+def delete_product(products_list):       #method to remove a product from the list
+    delete_product = input("Which product do you want to delete? ")      #prompt to enter name o fproduct to delete
 
-    for product in products_list:
-        if product.product_name == delete_product:
+    for product in products_list:      #iteration through our product list
+        if product.product_name == delete_product:     #checking if input product is in the list
             products_list.remove(product)
             print("Product deleted successfully.")
-            return
-
-        print("Product not found.")
+        else:
+            print("Product not found.")
+delete_product(products_list)
